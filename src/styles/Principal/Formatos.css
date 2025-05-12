@@ -1,0 +1,5 @@
+.Formatos__titulo{
+    font-weight: bold;
+    display: flex;
+    text-align: flex-start;
+}

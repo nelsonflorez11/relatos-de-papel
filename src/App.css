@@ -1,6 +1,9 @@
 #root {
-  max-width: 1280px;
+  /* max-width: 1280px; */
   text-align: center;
+  box-sizing: border-box;
+  background-color: --bs-tertiary-bg;
+  width: 100%;
 }
 
 .logo {
