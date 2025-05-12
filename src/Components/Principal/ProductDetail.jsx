@@ -18,7 +18,7 @@ function ProductDetail(props) {
         <div className="card-footer-libro mt-auto">
           <div className="row">
             <Link
-              to={`/product/${props.id}`}
+              to={`/product/${props.libro.id}`}
               className="btn btn-outline-primary w-100 mt-2"
             >
               <div className="d-flex flex-row justify-content-center align-items-center">
