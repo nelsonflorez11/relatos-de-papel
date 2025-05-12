@@ -1,12 +1,13 @@
 // src/components/ProductList.js
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { products as productsData } from '../data/products';
+import { Link } from 'react-router-dom';
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    // Simula una carga de datos (como si viniera de una API)
+    // Simula una carga de datos
     setTimeout(() => {
       setProducts(productsData);
     }, 500);
@@ -20,12 +21,12 @@ const ProductList = () => {
           <div className="col-md-4 mb-4" key={product.id}>
             <div className="card h-100 shadow-sm">
               <div className="card-body d-flex flex-column">
-                <h5 className="card-title">{product.name}</h5>                
+                <h5 className="card-title">{product.name}</h5>
                 <div className="mt-auto">
                   <h6 className="text-primary">${product.price}</h6>
-                  <button className="btn btn-outline-primary w-100 mt-2">
+                  <Link to={`/product/${product.id}`} className="btn btn-outline-primary w-100 mt-2">
                     Ver detalles
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -33,8 +34,6 @@ const ProductList = () => {
         ))}
       </div>
     </div>
-    
-    
   );
 };
 
