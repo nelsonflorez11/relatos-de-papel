@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import "../../styles/Principal/ProductList.css";
 import Paginacion from "./Paginacion";
-import ProductDetail from "./ProductDetail";
+import Product from "./Product";
 function ListaLibros({ data }) {
   const [listLibros, setListLibros] = useState([]);
   const [listLibrosVisibles, setListLibrosVisibles] = useState([]);
@@ -23,7 +23,7 @@ function ListaLibros({ data }) {
   return (
     <>
       {listLibrosVisibles.map((product) => (
-        <ProductDetail libro={product} key={product.id} />
+          <Product libro={product} key={product.id} />
       ))}
       <Paginacion
         librosPorPagina={cantLibrosPorPagina}
