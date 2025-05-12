@@ -13,22 +13,25 @@ const ProductList = () => {
   }, []);
 
   return (
-    <div>
-      <h2>Catálogo de libros</h2>
-      {products.length === 0 ? (
-        <p>Cargando productos...</p>
-      ) : (
-        <ul>
-          {products.map(product => (
-            <li key={product.id}>
-              <h3>{product.name}</h3>
-              <p>{product.description}</p>
-              <p><strong>Precio:</strong> ${product.price}</p>
-              <hr />
-            </li>
-          ))}
-        </ul>
-      )}
+    <div className="container py-5">
+      <h1 className="mb-4 text-center">Tienda de Libros</h1>
+      <div className="row">
+        {products.map(product => (
+          <div className="col-md-4 mb-4" key={product.id}>
+            <div className="card h-100 shadow-sm">
+              <div className="card-body d-flex flex-column">
+                <h5 className="card-title">{product.name}</h5>                
+                <div className="mt-auto">
+                  <h6 className="text-primary">${product.price}</h6>
+                  <button className="btn btn-outline-primary w-100 mt-2">
+                    Ver detalles
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
     
     
