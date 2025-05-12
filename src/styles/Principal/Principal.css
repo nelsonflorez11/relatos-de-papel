@@ -1,0 +1,15 @@
+.container--principal{
+   padding-top: 3rem;
+   min-height: 100vh;
+}
+.principal--filtros{
+    border-radius: 10px;
+}
+.principal--biblioteca{
+    border-radius: 10px;
+}
+@media (max-width: 790px) {
+    .button-text{
+        display: none;
+    }
+}
