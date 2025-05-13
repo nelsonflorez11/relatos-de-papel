@@ -1,17 +1,23 @@
-// src/App.jsx
 import "./App.css";
-import { Routes, Route } from "react-router-dom";
-import Header from "./components/header/header.jsx";
-import Footer from "./components/footer/footer.jsx";
-import Copyright from "./components/copyright/copyright.jsx";
-import Principal from "./pages/Principal.jsx";
-import ProductDetail from "./components/ProductDetail.jsx";
+import {Routes, Route, useLocation} from "react-router-dom";
+import Header from "./components/header/header";
+import Footer from "./components/footer/footer";
+import Copyright from "./components/copyright/copyright";
+import Principal from "./pages/Principal";
+import ProductDetail from "./components/ProductDetail";
+import Landing from "./pages/landing";
+
 function App() {
+
+    const hideHeaderOnRoutes = ["/"];
+    const hideHeader = hideHeaderOnRoutes.includes(useLocation().pathname);
+
     return (
         <>
-            <Header />
+            {!hideHeader && <Header />}
             <Routes>
-                <Route path="/" element={<Principal />} />
+                <Route path="/" element={<Landing />} />
+                <Route path="/tienda" element={<Principal />} />
                 <Route path="/product/:id" element={<ProductDetail />} />
             </Routes>
             <Footer />

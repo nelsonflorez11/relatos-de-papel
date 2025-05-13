@@ -1,5 +1,6 @@
 footer {
     width: 100vw;
+    margin: 0.5rem;
 
     @media (min-width: 768px) {
         text-align: left;
@@ -12,5 +13,11 @@ footer {
     i {
         font-size: 1.5rem;
         margin-right: 1.5rem;
+    }
+
+    a {
+        text-decoration: none;
+        color: var(--bs-heading-color);
+        font-weight: normal;
     }
 }
