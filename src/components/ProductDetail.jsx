@@ -1,8 +1,9 @@
+// src/components/ProductDetail.jsx
 import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { products } from '../data/products';
 
-const ProductDetail = () => {
+const ProductDetail = ({ addToCart }) => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
 
@@ -43,7 +44,9 @@ const ProductDetail = () => {
           </div>
 
           <div className="mt-4">
-            <button className="btn btn-primary me-2">Agregar al carrito</button>
+            <button className="btn btn-primary me-2" onClick={() => addToCart(product)}>
+              Agregar al carrito
+            </button>
             <button className="btn btn-primary">Comprar ahora</button>
           </div>
 
