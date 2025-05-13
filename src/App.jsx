@@ -7,14 +7,36 @@ import Copyright from "./components/copyright/copyright";
 import Principal from "./pages/Principal";
 import ProductDetail from "./components/ProductDetail";
 import Landing from "./pages/landing";
-import Cart from "./components/Cart"; // Asegúrate de tener este componente creado
+import Cart from "./components/Cart";
 
 function App() {
   const [cart, setCart] = useState([]);
 
   const addToCart = (product) => {
-    setCart((prevCart) => [...prevCart, product]);
-    console.log("Carrito actualizado:", [...cart, product]);
+    setCart((prevCart) => {
+      const existingItem = prevCart.find((item) => item.id === product.id);
+
+      if (existingItem) {
+        return prevCart.map((item) =>
+          item.id === product.id
+            ? {
+                ...item,
+                quantity: item.quantity + 1,
+                totalPrice: (item.quantity + 1) * item.price,
+              }
+            : item
+        );
+      }
+
+      return [
+        ...prevCart,
+        {
+          ...product,
+          quantity: 1,
+          totalPrice: product.price,
+        },
+      ];
+    });
   };
 
   const hideHeaderOnRoutes = ["/"];
@@ -22,7 +44,7 @@ function App() {
 
   return (
     <>
-      {!hideHeader && <Header cartCount={cart.length} />}
+      {!hideHeader && <Header cartCount={cart.reduce((sum, item) => sum + item.quantity, 0)} />}
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/tienda" element={<Principal />} />
