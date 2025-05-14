@@ -9,6 +9,9 @@ import ProductDetail from "./components/ProductDetail";
 import Landing from "./pages/landing";
 import Cart from "./components/Cart";
 
+//Este es el componente principal de la aplicación
+// Aquí se definen las rutas y el estado del carrito de compras
+// el componente App utiliza el hook useState para manejar el estado del carrito
 function App() {
   const [cart, setCart] = useState([]);
 
@@ -39,6 +42,22 @@ function App() {
     });
   };
 
+  const removeFromCart = (id) => {
+    setCart(prevCart =>
+      prevCart
+        .map(item =>
+          item.id === id
+            ? {
+                ...item,
+                quantity: item.quantity - 1,
+                totalPrice: (item.quantity - 1) * item.price,
+              }
+            : item
+        )
+        .filter(item => item.quantity > 0)
+    );
+  };
+
   const hideHeaderOnRoutes = ["/"];
   const hideHeader = hideHeaderOnRoutes.includes(useLocation().pathname);
 
@@ -49,7 +68,7 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/tienda" element={<Principal />} />
         <Route path="/product/:id" element={<ProductDetail addToCart={addToCart} />} />
-        <Route path="/carrito" element={<Cart cart={cart} />} />
+        <Route path="/carrito" element={<Cart cart={cart} removeFromCart={removeFromCart} />} />
       </Routes>
       <Footer />
       <Copyright />
