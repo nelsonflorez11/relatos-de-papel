@@ -1,10 +1,9 @@
-// src/components/ProductDetail.jsx
 import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { products } from '../data/products';
 
 const ProductDetail = ({ addToCart }) => {
-  const { id } = useParams();
+    const { id } = useParams(); 
   const [product, setProduct] = useState(null);
 
   useEffect(() => {

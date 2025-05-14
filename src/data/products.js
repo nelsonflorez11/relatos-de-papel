@@ -51,7 +51,7 @@ export const products = [
       id: 4,
       Image: 'https://librerialerner.vtexassets.com/arquivos/ids/1358182-1200-auto?v=638459794864200000&width=1200&height=auto&aspect=true',
       autor: 'Joseph Stiglitz',
-      name: 'el capitalismo progresista',
+      name: 'El capitalismo progresista',
       description: 'El capitalismo progresista es un libro del economista y político estadounidense Joseph Stiglitz, publicado en 2019. En él, Stiglitz argumenta que el capitalismo puede ser una fuerza positiva para el progreso social y económico si se implementan políticas adecuadas.',
       type: 'digital',
       price: 3700,
