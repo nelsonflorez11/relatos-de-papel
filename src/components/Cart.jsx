@@ -1,13 +1,3 @@
-//este componente se encarga de mostrar el carrito de compras
-// y los productos que el usuario ha agregado al carrito
-// y el total de la compra
-//
-// el componente recibe como prop el carrito de compras que viene del estado
-// del componente App
-// y lo muestra en una lista
-// si el carrito está vacío, muestra un mensaje indicando que está vacío
-// si el carrito tiene productos, muestra una lista con los productos
-// y el total de la compra
 const Cart = ({ cart, removeFromCart }) => {
   const totalGeneral = cart.reduce((acc, item) => acc + item.totalPrice, 0);
 

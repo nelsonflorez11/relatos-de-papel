@@ -1,19 +1,6 @@
-// src/components/ProductDetail.jsx
 import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { products } from '../data/products';
-
-// products es un array de objetos que contiene la información de los productos
-// Este componente muestra los detalles de un producto específico
-// y permite agregarlo al carrito de compras
-// El componente utiliza el hook useParams para obtener el id del producto de la URL
-// y el hook useEffect para buscar el producto en la lista de productos
-// El componente también recibe una función addToCart como prop
-// que se utiliza para agregar el producto al carrito de compras
-// El componente muestra la imagen, nombre, autor, precio y descripción del producto
-// También muestra una ficha técnica con información adicional del producto
-// El componente incluye un botón para agregar el producto al carrito
-
 
 const ProductDetail = ({ addToCart }) => {
     const { id } = useParams(); 
