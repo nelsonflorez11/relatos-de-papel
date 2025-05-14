@@ -1,6 +1,6 @@
 import "./App.css";
 import { Routes, Route, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "./components/header/header";
 import Footer from "./components/footer/footer";
 import Copyright from "./components/copyright/copyright";
@@ -9,11 +9,17 @@ import ProductDetail from "./components/ProductDetail";
 import Landing from "./pages/landing";
 import Cart from "./components/Cart";
 
-//Este es el componente principal de la aplicación
-// Aquí se definen las rutas y el estado del carrito de compras
-// el componente App utiliza el hook useState para manejar el estado del carrito
 function App() {
-  const [cart, setCart] = useState([]);
+  // Cargar carrito desde sessionStorage al inicio
+  const [cart, setCart] = useState(() => {
+    const savedCart = sessionStorage.getItem("cart");
+    return savedCart ? JSON.parse(savedCart) : [];
+  });
+
+  // Guardar en sessionStorage cada vez que el carrito cambie
+  useEffect(() => {
+    sessionStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
 
   const addToCart = (product) => {
     setCart((prevCart) => {
@@ -43,9 +49,9 @@ function App() {
   };
 
   const removeFromCart = (id) => {
-    setCart(prevCart =>
+    setCart((prevCart) =>
       prevCart
-        .map(item =>
+        .map((item) =>
           item.id === id
             ? {
                 ...item,
@@ -54,7 +60,7 @@ function App() {
               }
             : item
         )
-        .filter(item => item.quantity > 0)
+        .filter((item) => item.quantity > 0)
     );
   };
 
@@ -63,7 +69,9 @@ function App() {
 
   return (
     <>
-      {!hideHeader && <Header cartCount={cart.reduce((sum, item) => sum + item.quantity, 0)} />}
+      {!hideHeader && (
+        <Header cartCount={cart.reduce((sum, item) => sum + item.quantity, 0)} />
+      )}
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/tienda" element={<Principal />} />
