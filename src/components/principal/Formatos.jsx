@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../styles/Principal/Formatos.css";
-function Formatos() {
+function Formatos({ onfiltroFormato }) {
   const [formato, setFormato] = useState({
-    fisico: false,
-    digital: false,
+    físico: true,
+    digital: true,
   });
 
   const handleChange = (e) => {
@@ -13,7 +13,9 @@ function Formatos() {
       [name]: checked,
     }));
   };
-
+  useEffect(() => {
+    onfiltroFormato(formato);
+  }, [formato]);
   return (
     <>
       <div className="Formatos__titulo">
@@ -23,8 +25,8 @@ function Formatos() {
         <input
           className="form-check-input"
           type="checkbox"
-          name="fisico"
-          checked={formato.fisico}
+          name="físico"
+          checked={formato.físico}
           onChange={handleChange}
         />
         <label className="form-check-label">Físico</label>
