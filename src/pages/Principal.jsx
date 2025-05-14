@@ -67,42 +67,19 @@ const Principal = () => {
   return (
     <div className="container container--principal bg-light">
       <div className="row g-2 p-1 ">
-        <div className="d-inline-flex gap-1 d-flex justify-content-end">
-          <button
-            className="btn btn-primary btn-filtrosAdicionales"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapseExample"
-            aria-expanded="false"
-            aria-controls="collapseExample"
-          >
-            Ver más filtros
-          </button>
-        </div>
-
-        <div className="collapse" id="collapseExample">
-          <div className="card card-body">
-            <div className="d-flex flex-row  justify-content-between gap-4">
-              <div className="w-50">
-                <RangoPrecios
-                  onFiltroPrecio={handleFiltroPrecio}
-                  maxValueRange={libroMaxPrice}
-                />
-              </div>
-              <div className="w-50">
-                <FormatosComponent onfiltroFormato={handleFiltroFormato} />
-              </div>
+        <div className="col col-md-2 col-lg-3  m-3 p-4 ">
+          <p className="fw-bold fs-4">Filtros</p>
+          <div className="principal--filtros">
+            <div className="principal--filtros-rangoPrecio">
+              <RangoPrecios
+                onFiltroPrecio={handleFiltroPrecio}
+                maxValueRange={libroMaxPrice}
+              />
+            </div>
+            <div className="principal--filtros-formatos">
+              <FormatosComponent onfiltroFormato={handleFiltroFormato} />
             </div>
           </div>
-        </div>
-
-        <div className="col col-md-2 col-lg-3  m-3 p-4 principal--filtros">
-          <p className="fw-bold fs-4">Filtros</p>
-          <RangoPrecios
-            onFiltroPrecio={handleFiltroPrecio}
-            maxValueRange={libroMaxPrice}
-          />
-          <FormatosComponent onfiltroFormato={handleFiltroFormato} />
         </div>
         <div className="col col-md-8 col-lg-8  m-3 p-3 principal--biblioteca">
           <div className="row mt-3 mb-3">

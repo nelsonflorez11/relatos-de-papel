@@ -11,7 +11,7 @@ function ListaLibros({ data }) {
 
   useEffect(() => {
     setListLibros(data);
-    setCantLibrosPorPagina(4);
+    setCantLibrosPorPagina(6);
     setListLibrosVisibles(data.slice(0, cantLibrosPorPagina));
   }, [data, cantLibrosPorPagina]);
 
@@ -23,7 +23,7 @@ function ListaLibros({ data }) {
   return (
     <>
       {listLibrosVisibles.map((product) => (
-          <Product libro={product} key={product.id} />
+        <Product libro={product} key={product.id} />
       ))}
       <Paginacion
         librosPorPagina={cantLibrosPorPagina}

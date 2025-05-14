@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../../styles/Principal/Formatos.css";
 function Formatos({ onfiltroFormato }) {
   const [formato, setFormato] = useState({
-    físico: true,
+    fisico: true,
     digital: true,
   });
 
@@ -25,8 +25,8 @@ function Formatos({ onfiltroFormato }) {
         <input
           className="form-check-input"
           type="checkbox"
-          name="físico"
-          checked={formato.físico}
+          name="fisico"
+          checked={formato.fisico}
           onChange={handleChange}
         />
         <label className="form-check-label">Físico</label>

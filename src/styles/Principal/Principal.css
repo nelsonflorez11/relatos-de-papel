@@ -11,14 +11,23 @@
 .btn-filtrosAdicionales{
     display: none !important;
 }
-@media (max-width: 991px) {
+@media (max-width: 768px) {
     .button-text{
         display: none;
     }
-    .principal--filtros{
-         display: none;
-    }
+        .principal--filtros{
+            display: flex;
+            flex-direction: row;
+            gap: 40px;
+        }
+        .principal--filtros-rangoPrecio{
+            width: 50%;
+        }
+        .principal--filtros-formatos{
+            width: 50%;
+        }
     .btn-filtrosAdicionales{
         display: block !important;
     }
 }
+ 

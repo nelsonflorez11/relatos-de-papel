@@ -15,10 +15,8 @@ const Paginacion = ({ librosPorPagina, totalLibros, paginate }) => {
   function handlePageChange(number, isNext) {
     if (isNext && number < pageNumbers.length) {
       setPageNumberActual(number + 1);
-      console.log("next");
       paginate(number + 1);
     } else if (!isNext && number > 1) {
-      console.log("next");
       setPageNumberActual(number - 1);
       paginate(number - 1);
     }

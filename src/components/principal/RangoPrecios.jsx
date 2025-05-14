@@ -13,7 +13,7 @@ function RangoPrecios({ onFiltroPrecio, maxValueRange }) {
     onFiltroPrecio(value);
   }
   return (
-    <div className="w-100 rango-precios">
+    <div className="rango-precios">
       <div className="rango-precios__titulo">
         <p>Rango de precios ${valorActual}</p>
       </div>
