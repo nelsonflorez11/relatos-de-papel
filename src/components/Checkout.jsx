@@ -1,32 +1,44 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { cartItems as initialCartItems } from '../data/cartItems';
+import { useNavigate } from 'react-router-dom';
+import { getCartItems, updateCartItems } from '../data/cartItems';
 
 const Checkout = () => {
-  const [cartItems, setCartItems] = useState(initialCartItems);
+  const navigate = useNavigate();
+  const [cartItems, setCartItems] = useState([]);
+
+  useEffect(() => {
+    setCartItems(getCartItems());
+  }, []);
 
   const handleQuantityChange = (id, newQuantity) => {
     if (newQuantity < 1) return;
-    setCartItems(cartItems.map(item => 
-      item.id === id ? { ...item, quantity: newQuantity } : item
-    ));
+    
+    const updatedItems = cartItems.map(item => 
+      item.id === id ? { ...item, quantity: newQuantity, totalPrice: newQuantity * item.price } : item
+    );
+    
+    setCartItems(updatedItems);
+    updateCartItems(updatedItems);
   };
 
   const removeItem = (id) => {
-    setCartItems(cartItems.filter(item => item.id !== id));
+    const updatedItems = cartItems.filter(item => item.id !== id);
+    setCartItems(updatedItems);
+    updateCartItems(updatedItems);
   };
 
   const calculateTotal = () => {
-    return cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+    return cartItems.reduce((total, item) => total + item.totalPrice, 0);
   };
 
   const handlePayment = () => {
     alert('¡Gracias por tu compra! El total a pagar es: $' + calculateTotal().toFixed(2));
+    // Aquí iría la lógica de procesamiento del pago
   };
 
   const handleGoBack = () => {
-    alert('Volviendo a la página anterior...');
-    // Aquí iría la lógica de navegación
+    navigate('/carrito');
   };
 
   return (
@@ -49,54 +61,57 @@ const Checkout = () => {
               <h3 className="mb-0">Resumen de tu Compra</h3>
             </div>
             <div className="card-body">
-              {cartItems.map(item => (
-                <div key={item.id} className="card mb-3">
-                  <div className="card-body">
-                    <div className="row align-items-center">
-                      <div className="col-md-6">
-                        <h5 className="card-title">{item.title}</h5>
-                        <p className="card-text">
-                          <small className="text-muted">Autor: {item.author}</small><br />
-                          Tipo: {item.type === 'físico' ? '📚 Físico' : '📱 Digital'}
-                        </p>
-                      </div>
-                      <div className="col-md-2">
-                        <div className="input-group">
+              {cartItems.length === 0 ? (
+                <p className="text-muted">No hay productos en el carrito.</p>
+              ) : (
+                cartItems.map(item => (
+                  <div key={item.id} className="card mb-3">
+                    <div className="card-body">
+                      <div className="row align-items-center">
+                        <div className="col-md-6">
+                          <h5 className="card-title">{item.name}</h5>
+                          <p className="card-text">
+                            <small className="text-muted">Precio unitario: ${item.price}</small>
+                          </p>
+                        </div>
+                        <div className="col-md-2">
+                          <div className="input-group">
+                            <button 
+                              className="btn btn-outline-secondary" 
+                              onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
+                            >
+                              -
+                            </button>
+                            <input 
+                              type="text" 
+                              className="form-control text-center" 
+                              value={item.quantity} 
+                              readOnly 
+                            />
+                            <button 
+                              className="btn btn-outline-secondary" 
+                              onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
+                            >
+                              +
+                            </button>
+                          </div>
+                        </div>
+                        <div className="col-md-2">
+                          <p className="mb-0">${item.totalPrice.toFixed(2)}</p>
+                        </div>
+                        <div className="col-md-2">
                           <button 
-                            className="btn btn-outline-secondary" 
-                            onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
+                            className="btn btn-danger" 
+                            onClick={() => removeItem(item.id)}
                           >
-                            -
-                          </button>
-                          <input 
-                            type="text" 
-                            className="form-control text-center" 
-                            value={item.quantity} 
-                            readOnly 
-                          />
-                          <button 
-                            className="btn btn-outline-secondary" 
-                            onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
-                          >
-                            +
+                            Eliminar
                           </button>
                         </div>
                       </div>
-                      <div className="col-md-2">
-                        <p className="mb-0">${(item.price * item.quantity).toFixed(2)}</p>
-                      </div>
-                      <div className="col-md-2">
-                        <button 
-                          className="btn btn-danger" 
-                          onClick={() => removeItem(item.id)}
-                        >
-                          Eliminar
-                        </button>
-                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))
+              )}
             </div>
           </div>
         </div>

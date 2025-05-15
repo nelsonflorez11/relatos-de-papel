@@ -1,5 +1,19 @@
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { updateCartItems } from '../data/cartItems';
+
 const Cart = ({ cart, removeFromCart }) => {
+  const navigate = useNavigate();
   const totalGeneral = cart.reduce((acc, item) => acc + item.totalPrice, 0);
+
+  useEffect(() => {
+    // Actualizar cartItems cada vez que el carrito cambie
+    updateCartItems(cart);
+  }, [cart]);
+
+  const handleCheckout = () => {
+    navigate('/checkout');
+  };
 
   return (
     <div className="container py-5">
@@ -43,6 +57,16 @@ const Cart = ({ cart, removeFromCart }) => {
 
           <div className="text-end mt-4">
             <h4 className="fw-bold">🧾 Total general: ${totalGeneral}</h4>
+          </div>
+
+          <div className="text-center mt-4">
+            <button 
+              className="btn btn-primary btn-lg" 
+              onClick={handleCheckout}
+              disabled={cart.length === 0}
+            >
+              Proceder con el pago
+            </button>
           </div>
         </>
       )}
