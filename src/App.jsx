@@ -5,6 +5,7 @@ import Header from "./components/header/header";
 import Footer from "./components/footer/footer";
 import Copyright from "./components/copyright/copyright";
 import Principal from "./pages/Principal";
+import Checkout from './components/Checkout'
 import ProductDetail from "./components/ProductDetail";
 import Landing from "./pages/landing";
 import Cart from "./components/Cart";
