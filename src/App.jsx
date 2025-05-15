@@ -8,6 +8,8 @@ import Principal from "./pages/Principal";
 import ProductDetail from "./components/ProductDetail";
 import Landing from "./pages/landing";
 import Cart from "./components/Cart";
+import AboutUs from "./components/AboutUs.jsx";
+import Contact from "./components/Contact.jsx";
 
 function App() {
   // Cargar carrito desde sessionStorage al inicio
@@ -75,6 +77,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/tienda" element={<Principal />} />
+        <Route path="/sobre-nosotros" element={<AboutUs />} />
+        <Route path="/contacto" element={<Contact />} />
         <Route path="/product/:id" element={<ProductDetail addToCart={addToCart} />} />
         <Route path="/carrito" element={<Cart cart={cart} removeFromCart={removeFromCart} />} />
       </Routes>

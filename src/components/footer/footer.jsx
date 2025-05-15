@@ -12,8 +12,8 @@ export default function Footer() {
                     </div>
                     <div className="col-12 col-md-3 mb-3">
                         <h2>Enlaces</h2>
-                        <Link to={"#"}><p> Sobre Nosotros</p></Link>
-                        <Link to={"#"}><p>Contacto</p></Link>
+                        <Link to={"/sobre-nosotros"}><p> Sobre Nosotros</p></Link>
+                        <Link to={"/contacto"}><p>Contacto</p></Link>
                     </div>
                     <div className="col-12 col-md-3 mb-3">
                         <h2>Ayuda</h2>

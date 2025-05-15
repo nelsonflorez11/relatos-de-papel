@@ -1,8 +1,41 @@
 header {
-    width: 100vw;
+    width: 100%;
     padding-block: 2rem;
+
+    .header__content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-inline: 2rem;
+    }
+
+    .header__content--left {
+        flex: 1;
+        justify-content: flex-start;
+    }
+
+    .header__content--center {
+        flex: 3;
+        display: flex;
+        justify-content: center;
+        gap: 3rem;
+    }
+
+    .header__content--right {
+        flex: 1;
+        justify-content: flex-end;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
 
     a {
         text-decoration: none;
+    }
+
+    .nav-link:hover {
+        text-decoration: underline;
+        color: #535bf2;
     }
 }
