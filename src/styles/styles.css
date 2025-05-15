@@ -26,3 +26,23 @@
         text-decoration: none;
     }
 }
+
+.about-us {
+    width: 50%;
+    margin: 15vh auto;
+    line-height: 2.0rem;
+
+    h2 {
+        margin-bottom: 2.5rem;
+    }
+}
+
+.contact-form {
+    width: 75vw !important;
+    margin: 15vh auto;
+
+    .form-label{
+        text-align: left;
+        display: block;
+    }
+}

@@ -49,7 +49,7 @@ const ProductDetail = ({ addToCart }) => {
             <button className="btn btn-primary">Comprar ahora</button>
           </div>
 
-          <Link to="/" className="btn btn-link mt-4 d-block">← Volver a la tienda</Link>
+          <Link to="/tienda" className="btn btn-link mt-4 d-block">← Volver a la tienda</Link>
         </div>
       </div>
     </div>
