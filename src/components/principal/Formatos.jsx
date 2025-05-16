@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../styles/Principal/Formatos.css";
-function Formatos() {
+function Formatos({ onfiltroFormato }) {
   const [formato, setFormato] = useState({
-    fisico: false,
-    digital: false,
+    fisico: true,
+    digital: true,
   });
 
   const handleChange = (e) => {
@@ -13,7 +13,9 @@ function Formatos() {
       [name]: checked,
     }));
   };
-
+  useEffect(() => {
+    onfiltroFormato(formato);
+  }, [formato]);
   return (
     <>
       <div className="Formatos__titulo">

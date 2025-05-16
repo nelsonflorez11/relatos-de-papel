@@ -7,12 +7,17 @@ import { products } from "../data/products";
 import FormatosComponent from "../components/principal/Formatos";
 const Principal = () => {
   const [listLibros, setListLibros] = useState([]);
-  const [libroMaxPrice, setLibroMaxPrice] = useState([]);
+  const [libroMaxPrice, setLibroMaxPrice] = useState(0);
   const [listLibrosFiltrados, setListLibrosFiltrados] = useState([]);
+
+  // filtros a aplicar
+  const [tituloFiltro, setTituloFiltro] = useState("");
+  const [tipoFormatoFiltro, setTipoFormatoFiltro] = useState({});
+  const [precioMaxFiltro, setPrecioMaxFiltro] = useState(libroMaxPrice);
 
   useEffect(() => {
     setListLibros(products);
-    setListLibrosFiltrados(products);
+    // calcular el precio maximo de los libros para el rango de precios
     const valorMax = products.reduce((libroMayor, libroActual) => {
       if (!libroMayor || libroActual.price > libroMayor.price) {
         return libroActual;
@@ -20,37 +25,64 @@ const Principal = () => {
       return libroMayor;
     }, null)?.price;
 
-    setLibroMaxPrice(valorMax);
-  }, [products]);
+    setPrecioMaxFiltro(valorMax || 0);
+    setLibroMaxPrice(valorMax || 0);
+
+    setListLibrosFiltrados(products);
+  }, []);
+
+  useEffect(() => {
+    setListLibrosFiltrados(filterBooks());
+  }, [precioMaxFiltro, tituloFiltro, tipoFormatoFiltro]);
 
   const handleFiltroPrecio = (precio) => {
-    const librosFiltrados = listLibros.filter((libro) => {
-      return parseFloat(libro.price) >= parseFloat(precio);
-    });
-    setListLibrosFiltrados(librosFiltrados);
+    setPrecioMaxFiltro(precio);
   };
+
   const handleFiltroTitulo = (title) => {
-    const librosFiltrados = listLibros.filter((libro) => {
-      return libro.name
-        .toString()
-        .toLocaleLowerCase()
-        .includes(title.toString().toLocaleLowerCase());
-    });
-    setListLibrosFiltrados(librosFiltrados);
+    setTituloFiltro(title);
   };
+  const handleFiltroFormato = (formato) => {
+    setTipoFormatoFiltro(formato);
+  };
+
+  const filterBooks = () => {
+    return listLibros.filter((libro) => {
+      if (precioMaxFiltro && libro.price > precioMaxFiltro) return false;
+      if (
+        tituloFiltro &&
+        !libro.name.toLowerCase().includes(tituloFiltro.toLowerCase())
+      )
+        return false;
+      if (
+        Object.keys(tipoFormatoFiltro).length > 0 &&
+        !tipoFormatoFiltro[libro.type]
+      )
+        return false;
+
+      return true;
+    });
+  };
+
   return (
     <div className="container container--principal bg-light">
-      <div className="row g-2 p-1">
-        <div className="col col-md-2 col-lg-3  m-3 p-4 principal--filtros">
-          <p>Filtros</p>
-          <RangoPrecios
-            onFiltroPrecio={handleFiltroPrecio}
-            maxValueRange={libroMaxPrice}
-          />
-          <FormatosComponent />
+      <div className="row g-2 p-1 ">
+        <div className="col col-md-2 col-lg-3  m-3 p-4 ">
+          <p className="fw-bold fs-4">Filtros</p>
+          <div className="principal--filtros">
+            <div className="principal--filtros-rangoPrecio">
+              <RangoPrecios
+                onFiltroPrecio={handleFiltroPrecio}
+                maxValueRange={libroMaxPrice}
+              />
+            </div>
+            <div className="principal--filtros-formatos">
+              <FormatosComponent onfiltroFormato={handleFiltroFormato} />
+            </div>
+          </div>
         </div>
         <div className="col col-md-8 col-lg-8  m-3 p-3 principal--biblioteca">
-          <div className="row m-3">
+          <div className="row mt-3 mb-3">
             <BarraBusqueda onFiltroTitulo={handleFiltroTitulo} />
           </div>
           <div className="row g-4">
