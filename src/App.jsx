@@ -8,6 +8,7 @@ import Principal from "./pages/Principal";
 import ProductDetail from "./components/ProductDetail";
 import Landing from "./pages/landing";
 import Cart from "./components/Cart";
+import Checkout from "./components/Checkout";
 import AboutUs from "./components/AboutUs.jsx";
 import Contact from "./components/Contact.jsx";
 
@@ -81,6 +82,7 @@ function App() {
         <Route path="/contacto" element={<Contact />} />
         <Route path="/product/:id" element={<ProductDetail addToCart={addToCart} />} />
         <Route path="/carrito" element={<Cart cart={cart} removeFromCart={removeFromCart} />} />
+        <Route path="/checkout" element={<Checkout />} />
       </Routes>
       <Footer />
       <Copyright />
