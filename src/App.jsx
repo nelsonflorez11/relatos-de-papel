@@ -1,9 +1,9 @@
 import "./App.css";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import Header from "./components/header/header";
-import Footer from "./components/footer/footer";
-import Copyright from "./components/copyright/copyright";
+import Header from "./components/Header.jsx";
+import Footer from "./components/Footer.jsx";
+import Copyright from "./components/Copyright.jsx";
 import Principal from "./pages/Principal";
 import ProductDetail from "./components/ProductDetail";
 import Landing from "./pages/landing";

@@ -1,10 +1,16 @@
 import { useParams, Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { products } from '../data/products';
 
 const ProductDetail = ({ addToCart }) => {
-    const { id } = useParams(); 
+  const { id } = useParams();
   const [product, setProduct] = useState(null);
+  const [added, setAdded] = useState(false);
+
+  const showMessage = () => {
+    setAdded(true);
+    setTimeout(() => setAdded(false), 4000);
+  };
 
   useEffect(() => {
     const found = products.find(p => p.id === parseInt(id));
@@ -17,6 +23,11 @@ const ProductDetail = ({ addToCart }) => {
 
   return (
     <div className="container py-5">
+      {added && (
+          <div className="alert alert-success text-center">
+            ¡Producto añadido al carrito exitosamente!
+          </div>
+      )}
       <div className="row">
         <div className="col-md-4">
           <img
@@ -43,10 +54,12 @@ const ProductDetail = ({ addToCart }) => {
           </div>
 
           <div className="mt-4">
-            <button className="btn btn-primary me-2" onClick={() => addToCart(product)}>
+            <button className="btn btn-primary me-2" onClick={() => {
+              addToCart(product);
+              showMessage();
+            }}>
               Agregar al carrito
             </button>
-            <button className="btn btn-primary">Comprar ahora</button>
           </div>
 
           <Link to="/tienda" className="btn btn-link mt-4 d-block">← Volver a la tienda</Link>

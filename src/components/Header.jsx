@@ -1,6 +1,6 @@
-import "./header.css";
+import "../styles/header.css";
 import { Link } from "react-router-dom";
-import { getCartItems } from "../../data/cartItems";
+import { getCartItems } from "../data/cartItems.js";
 import { useEffect, useState } from "react";
 
 export default function Header() {
