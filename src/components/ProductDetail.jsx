@@ -45,8 +45,7 @@ const ProductDetail = ({ addToCart }) => {
           <div className="mt-4">
             <button className="btn btn-primary me-2" onClick={() => addToCart(product)}>
               Agregar al carrito
-            </button>
-            <button className="btn btn-primary">Comprar ahora</button>
+            </button>           
           </div>
 
           <Link to="/tienda" className="btn btn-link mt-4 d-block">← Volver a la tienda</Link>
