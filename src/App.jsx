@@ -82,7 +82,7 @@ function App() {
         <Route path="/contacto" element={<Contact />} />
         <Route path="/product/:id" element={<ProductDetail addToCart={addToCart} />} />
         <Route path="/carrito" element={<Cart cart={cart} removeFromCart={removeFromCart} />} />
-        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/checkout" element={<Checkout setCart={setCart} />} />
       </Routes>
       <Footer />
       <Copyright />
