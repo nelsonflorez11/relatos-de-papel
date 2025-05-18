@@ -2,23 +2,23 @@ import React, { useState } from "react";
 import "../styles/styles.css";
 
 export default function Contact() {
-    const [enviado, setEnviado] = useState(false);
+    const [sent, setSent] = useState(false);
 
-    const manejarEnvio = (e) => {
+    const showMessage = (e) => {
         e.preventDefault();
-        setEnviado(true);
-        setTimeout(() => setEnviado(false), 4000);
+        setSent(true);
+        setTimeout(() => setSent(false), 4000);
     };
 
     return (
         <div className="contact-form container mt-5">
-            {enviado && (
+            {sent && (
                 <div className="alert alert-success text-center">
                     ¡Mensaje enviado exitosamente!
                 </div>
             )}
             <h2 className="text-center mb-4">Contáctanos</h2>
-            <form onSubmit={manejarEnvio}>
+            <form onSubmit={showMessage}>
                 <div className="mb-3">
                     <label className="form-label">Nombre</label>
                     <input type="text" className="form-control" id="nombre" placeholder="Tu nombre" />
