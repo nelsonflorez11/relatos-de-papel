@@ -3,24 +3,26 @@ import { Link } from "react-router-dom";
 function ProductDetail(props) {
   return (
     <div className="col col-12 col-lg-4" key={props.libro.id}>
-      <div className="card card-Container shadow-sm">
-        <div className="card-header card-header-libro">
+      <div className="card card__container shadow-sm">
+        <div className="card-header">
           {/* Imagen del libro */}
-          <img 
-            className="card-header-img card-img-top" 
-            src={props.libro.Image} // Añadir la URL de la imagen aquí            
+          <img
+            className="card-header-img card-img-top"
+            src={props.libro.Image} // Añadir la URL de la imagen aquí
           />
         </div>
-        <div className="card-body card-body-libro d-flex flex-column justify-content-between">
+        <div className="card-body card-body__libro d-flex flex-column justify-content-between">
           <div>
             <h5 className="card-title card-text__titulo">{props.libro.name}</h5>
           </div>
           <div>
-            <p className="card-text card-text__autor">Autor: {props.libro.autor}</p>
+            <p className="card-text card-text__autor">
+              Autor: {props.libro.autor}
+            </p>
             <p className="card-text card-text__precio">$ {props.libro.price}</p>
           </div>
         </div>
-        <div className="card-footer-libro mt-auto">
+        <div className="card-footer__libro mt-auto">
           <div className="row">
             <Link
               to={`/product/${props.libro.id}`}
