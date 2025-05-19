@@ -1,12 +1,12 @@
-.card-container {
+.card__container {
   min-height: 350px;
 }
-.card-body-libro {
+.card-body__libro {
     width: 100%;
     text-align: start;
     height: 150px;
 }
-.card-footer-libro {
+.card-footer__libro {
   height: 25px;
 }
 .card-text__titulo{

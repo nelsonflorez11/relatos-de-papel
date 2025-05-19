@@ -65,23 +65,23 @@ const Principal = () => {
   };
 
   return (
-    <div className="container container--principal bg-light">
+    <div className="container container__principal bg-light">
       <div className="row g-2 p-1 ">
         <div className="col col-md-2 col-lg-3  m-3 p-4 ">
           <p className="fw-bold fs-4">Filtros</p>
-          <div className="principal--filtros">
-            <div className="principal--filtros-rangoPrecio">
+          <div className="principal__filtros">
+            <div className="principal__filtros__rangoPrecio">
               <RangoPrecios
                 onFiltroPrecio={handleFiltroPrecio}
                 maxValueRange={libroMaxPrice}
               />
             </div>
-            <div className="principal--filtros-formatos">
+            <div className="principal__filtros__formatos">
               <FormatosComponent onfiltroFormato={handleFiltroFormato} />
             </div>
           </div>
         </div>
-        <div className="col col-md-8 col-lg-8  m-3 p-3 principal--biblioteca">
+        <div className="col col-md-8 col-lg-8  m-3 p-3 principal__biblioteca">
           <div className="row mt-3 mb-3">
             <BarraBusqueda onFiltroTitulo={handleFiltroTitulo} />
           </div>

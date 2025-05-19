@@ -1,32 +1,32 @@
-.container--principal{
+.container__principal{
    padding-top: 3rem;
    min-height: 100vh;
 }
-.principal--filtros{
+.principal__filtros{
     border-radius: 10px;
 }
-.principal--biblioteca{
+.principal__biblioteca{
     border-radius: 10px;
 }
-.btn-filtrosAdicionales{
+.filtrosAdicionales__btn{
     display: none !important;
 }
 @media (max-width: 768px) {
     .button-text{
         display: none;
     }
-        .principal--filtros{
+        .principal__filtros{
             display: flex;
             flex-direction: row;
             gap: 40px;
         }
-        .principal--filtros-rangoPrecio{
+        .principal__filtros__rangoPrecio{
             width: 50%;
         }
-        .principal--filtros-formatos{
+        .principal__filtros__formatos{
             width: 50%;
         }
-    .btn-filtrosAdicionales{
+    .filtrosAdicionales__btn{
         display: block !important;
     }
 }

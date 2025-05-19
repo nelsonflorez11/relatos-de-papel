@@ -1,13 +1,13 @@
-.rango-precios{
+.rangoPrecios{
 display: flex;
 flex-direction: column;
 }
-.rango-precios__titulo{
+.rangoPrecios__titulo{
     font-weight: bold;
     display: flex;
     text-align: flex-start;
 }
-.rango-precios__valores{
+.rangoPrecios__valores{
     display: flex;
     justify-content: space-between;
 }
