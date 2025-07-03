@@ -15,12 +15,61 @@ const Checkout = ({ setCart }) => {
     return cartItems.reduce((total, item) => total + item.totalPrice, 0);
   };
 
-  const handlePayment = () => {
-    alert('¡Gracias por tu compra! El total a pagar es: $' + calculateTotal().toFixed(2));
-    clearCart();
-    sessionStorage.removeItem('cart');
-    setCart([]);
-    navigate('/tienda');
+  const handlePayment = async () => {
+    let successCount = 0;
+    let failCount = 0;
+    const responses = [];
+
+    for (const item of cartItems) {
+      try {
+        const response = await fetch('http://localhost:8762/ms-books-payments/api/purchases', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            bookId: item.isbn,
+            quantity: item.quantity,
+          }),
+        });
+
+        const data = await response.json();
+        responses.push(data);
+
+        if (data.status === 'COMPLETADA') {
+          successCount++;
+        } else {
+          failCount++;
+        }
+      } catch (error) {
+        console.error(`Error al procesar compra del libro ${item.isbn}:`, error);
+        failCount++;
+      }
+    }
+
+    // Mostrar resultados al usuario
+    let message = '';
+    if (successCount > 0) {
+      message += `✅ ${successCount} compra(s) completadas con éxito.\n`;
+    }
+    if (failCount > 0) {
+      message += `❌ ${failCount} compra(s) fallidas.\n\nDetalles:\n`;
+      responses
+          .filter(r => r.status === 'FALLIDA')
+          .forEach(r => {
+            message += `- Libro ID ${r.bookId}: ${r.details}\n`;
+          });
+    }
+
+    alert(message);
+
+    // Si al menos una fue exitosa, limpiamos el carrito
+    if (successCount > 0) {
+      clearCart();
+      sessionStorage.removeItem('cart');
+      setCart([]);
+      navigate('/tienda');
+    }
   };
 
   const handleGoBack = () => {
@@ -51,7 +100,7 @@ const Checkout = ({ setCart }) => {
                 <p className="text-muted">No hay productos en el carrito.</p>
               ) : (
                 cartItems.map(item => (
-                  <div key={item.id} className="card mb-3">
+                  <div key={item.isbn} className="card mb-3">
                     <div className="card-body">
                       <div className="row align-items-center">
                         <div className="col-md-8">
