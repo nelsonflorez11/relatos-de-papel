@@ -15,9 +15,10 @@ const ProductDetail = ({ addToCart }) => {
     const fetchData = async () => {
       try {
         const response = await fetch("http://localhost:8762/buscador-ms/books");
-        const products = await response.json();
+        const productsResponse = await response.json();
+        const products = productsResponse.books;
 
-        const found = products.find(p => p.isbn === parseInt(id));
+        const found = products.find(p => p.isbn === id);
         setProduct(found);
       } catch (error) {
         console.error("Error al obtener libros:", error);
