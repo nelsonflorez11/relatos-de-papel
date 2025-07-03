@@ -3,8 +3,8 @@ import "../styles/Principal/Principal.css";
 import BarraBusqueda from "../components/principal/BarraBusqueda";
 import ListaLibros from "../components/principal/ProductList";
 import RangoPrecios from "../components/principal/RangoPrecios";
-import { products } from "../data/products";
 import FormatosComponent from "../components/principal/Formatos";
+
 const Principal = () => {
   const [listLibros, setListLibros] = useState([]);
   const [libroMaxPrice, setLibroMaxPrice] = useState(0);
@@ -16,19 +16,29 @@ const Principal = () => {
   const [precioMaxFiltro, setPrecioMaxFiltro] = useState(libroMaxPrice);
 
   useEffect(() => {
-    setListLibros(products);
-    // calcular el precio maximo de los libros para el rango de precios
-    const valorMax = products.reduce((libroMayor, libroActual) => {
-      if (!libroMayor || libroActual.price > libroMayor.price) {
-        return libroActual;
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:8762/buscador-ms/books");
+        const products = await response.json();
+
+        setListLibros(products);
+
+        // calcular el precio maximo de los libros para el rango de precios
+        const valorMax = products.reduce((libroMayor, libroActual) => {
+          return !libroMayor || libroActual.price > libroMayor.price
+              ? libroActual
+              : libroMayor;
+        }, null)?.price;
+
+        setPrecioMaxFiltro(valorMax || 0);
+        setLibroMaxPrice(valorMax || 0);
+        setListLibrosFiltrados(products);
+      } catch (error) {
+        console.error("Error al obtener libros:", error);
       }
-      return libroMayor;
-    }, null)?.price;
+    };
 
-    setPrecioMaxFiltro(valorMax || 0);
-    setLibroMaxPrice(valorMax || 0);
-
-    setListLibrosFiltrados(products);
+    fetchData();
   }, []);
 
   useEffect(() => {

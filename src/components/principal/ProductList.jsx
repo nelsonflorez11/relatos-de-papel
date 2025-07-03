@@ -23,7 +23,7 @@ function ListaLibros({ data }) {
   return (
     <>
       {listLibrosVisibles.map((product) => (
-        <Product libro={product} key={product.id} />
+        <Product libro={product} key={product.isbn} />
       ))}
       <Paginacion
         librosPorPagina={cantLibrosPorPagina}

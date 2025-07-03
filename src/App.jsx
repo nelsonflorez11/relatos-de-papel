@@ -26,11 +26,11 @@ function App() {
 
   const addToCart = (product) => {
     setCart((prevCart) => {
-      const existingItem = prevCart.find((item) => item.id === product.id);
+      const existingItem = prevCart.find((item) => item.isbn === product.isbn);
 
       if (existingItem) {
         return prevCart.map((item) =>
-          item.id === product.id
+          item.isbn === product.isbn
             ? {
                 ...item,
                 quantity: item.quantity + 1,
@@ -51,11 +51,11 @@ function App() {
     });
   };
 
-  const removeFromCart = (id) => {
+  const removeFromCart = (isbn) => {
     setCart((prevCart) =>
       prevCart
         .map((item) =>
-          item.id === id
+          item.isbn === isbn
             ? {
                 ...item,
                 quantity: item.quantity - 1,

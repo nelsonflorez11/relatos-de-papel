@@ -24,13 +24,13 @@ const Cart = ({ cart, removeFromCart }) => {
       ) : (
         <>
           {cart.map((item) => (
-            <div key={item.id} className="card mb-3 shadow-sm">
+            <div key={item.isbn} className="card mb-3 shadow-sm">
               <div className="card-body d-flex align-items-center">
                 {/* Imagen */}
-                {item.Image && (
+                {item.image && (
                   <img
-                    src={item.Image}
-                    alt={item.name}
+                    src={item.image}
+                    alt={item.title}
                     className="me-3 rounded"
                     style={{ width: '100px', height: 'auto' }}
                   />
@@ -38,7 +38,7 @@ const Cart = ({ cart, removeFromCart }) => {
 
                 {/* Información del libro */}
                 <div className="flex-grow-1">
-                  <h3 className="card-title mb-2">{item.name}</h3>
+                  <h3 className="card-title mb-2">{item.title}</h3>
                   <p className="mb-1"><strong>Precio unitario:</strong> ${item.price}</p>
                   <p className="mb-1"><strong>Cantidad:</strong> {item.quantity}</p>
                   <p className="mb-0"><strong>Total del producto:</strong> ${item.totalPrice}</p>
@@ -47,7 +47,7 @@ const Cart = ({ cart, removeFromCart }) => {
                 {/* Botón reducir cantidad */}
                 <button
                   className="btn btn-outline-danger btn-sm"
-                  onClick={() => removeFromCart(item.id)}
+                  onClick={() => removeFromCart(item.isbn)}
                 >
                   ✖
                 </button>
