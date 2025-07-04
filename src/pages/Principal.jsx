@@ -7,7 +7,6 @@ import FormatosComponent from "../components/principal/Formatos";
 import CategoriasComponent from "../components/principal/Categorias";
 
 const Principal = () => {
-  const [listLibros, setListLibros] = useState([]);
   const [libroMaxPrice, setLibroMaxPrice] = useState(0);
   const [listLibrosFiltrados, setListLibrosFiltrados] = useState([]);
 
@@ -23,8 +22,6 @@ const Principal = () => {
         const response = await fetch("http://localhost:8762/buscador-ms/books");
         const productsResponse = await response.json();
         const products = productsResponse.books;
-
-        setListLibros(products);
 
         // calcular el precio maximo de los libros para el rango de precios
         const valorMax = products.reduce((libroMayor, libroActual) => {
@@ -49,14 +46,12 @@ const Principal = () => {
       try {
         const params = new URLSearchParams();
         if (busquedaFiltro.valor) params.append(busquedaFiltro.tipo, busquedaFiltro.valor);
-        /*if (precioMaxFiltro) params.append("maxPrice", precioMaxFiltro);*/
-
+        if (precioMaxFiltro) params.append("minprice", 0);
+        if (precioMaxFiltro) params.append("maxprice", precioMaxFiltro);
         if (tipoFormatoFiltro && tipoFormatoFiltro !== 'Todos') params.append("formato", tipoFormatoFiltro);
         if (tipoCategoriasFiltro && tipoCategoriasFiltro !== 'Todas') params.append("categoria", tipoCategoriasFiltro);
 
         const url = `http://localhost:8762/buscador-ms/books?${params.toString()}`;
-
-        console.log(url);
 
         const response = await fetch(url);
         const result = await response.json();
