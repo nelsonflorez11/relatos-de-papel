@@ -19,7 +19,7 @@ const Principal = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:8762/buscador-ms/books");
+        const response = await fetch("http://50.18.42.172:8762/buscador-ms/books");
         const productsResponse = await response.json();
         const products = productsResponse.books;
 
@@ -51,7 +51,7 @@ const Principal = () => {
         if (tipoFormatoFiltro && tipoFormatoFiltro !== 'Todos') params.append("formato", tipoFormatoFiltro);
         if (tipoCategoriasFiltro && tipoCategoriasFiltro !== 'Todas') params.append("categoria", tipoCategoriasFiltro);
 
-        const url = `http://localhost:8762/buscador-ms/books?${params.toString()}`;
+        const url = `http://50.18.42.172:8762/buscador-ms/books?${params.toString()}`;
 
         const response = await fetch(url);
         const result = await response.json();

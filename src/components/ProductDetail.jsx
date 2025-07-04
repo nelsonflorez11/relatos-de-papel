@@ -14,7 +14,7 @@ const ProductDetail = ({ addToCart }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:8762/buscador-ms/books");
+        const response = await fetch("http://50.18.42.172:8762/buscador-ms/books");
         const productsResponse = await response.json();
         const products = productsResponse.books;
 

@@ -22,7 +22,7 @@ const Checkout = ({ setCart }) => {
 
     for (const item of cartItems) {
       try {
-        const response = await fetch('http://localhost:8762/ms-books-payments/api/purchases', {
+        const response = await fetch('http://50.18.42.172:8762/ms-books-payments/api/purchases', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
