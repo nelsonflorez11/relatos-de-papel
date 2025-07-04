@@ -4,6 +4,7 @@ import BarraBusqueda from "../components/principal/BarraBusqueda";
 import ListaLibros from "../components/principal/ProductList";
 import RangoPrecios from "../components/principal/RangoPrecios";
 import FormatosComponent from "../components/principal/Formatos";
+import CategoriasComponent from "../components/principal/Categorias";
 
 const Principal = () => {
   const [listLibros, setListLibros] = useState([]);
@@ -11,8 +12,9 @@ const Principal = () => {
   const [listLibrosFiltrados, setListLibrosFiltrados] = useState([]);
 
   // filtros a aplicar
-  const [tituloFiltro, setTituloFiltro] = useState("");
+  const [busquedaFiltro, setBusquedaFiltro] = useState({ tipo: "titulo", valor: "" });
   const [tipoFormatoFiltro, setTipoFormatoFiltro] = useState({});
+  const [tipoCategoriasFiltro, setTipoCategoriasFiltro] = useState({});
   const [precioMaxFiltro, setPrecioMaxFiltro] = useState(libroMaxPrice);
 
   useEffect(() => {
@@ -43,36 +45,44 @@ const Principal = () => {
   }, []);
 
   useEffect(() => {
-    setListLibrosFiltrados(filterBooks());
-  }, [precioMaxFiltro, tituloFiltro, tipoFormatoFiltro]);
+    const fetchFiltrados = async () => {
+      try {
+        const params = new URLSearchParams();
+        if (busquedaFiltro.valor) params.append(busquedaFiltro.tipo, busquedaFiltro.valor);
+        /*if (precioMaxFiltro) params.append("maxPrice", precioMaxFiltro);*/
+
+        if (tipoFormatoFiltro && tipoFormatoFiltro !== 'Todos') params.append("formato", tipoFormatoFiltro);
+        if (tipoCategoriasFiltro && tipoCategoriasFiltro !== 'Todas') params.append("categoria", tipoCategoriasFiltro);
+
+        const url = `http://localhost:8762/buscador-ms/books?${params.toString()}`;
+
+        console.log(url);
+
+        const response = await fetch(url);
+        const result = await response.json();
+        setListLibrosFiltrados(result.books);
+      } catch (error) {
+        console.error("Error al filtrar libros:", error);
+      }
+    };
+
+    fetchFiltrados();
+  }, [busquedaFiltro, tipoFormatoFiltro, precioMaxFiltro, tipoCategoriasFiltro]);
 
   const handleFiltroPrecio = (precio) => {
     setPrecioMaxFiltro(precio);
   };
 
-  const handleFiltroTitulo = (title) => {
-    setTituloFiltro(title);
+  const handleFiltroBusqueda = (tipo, valor) => {
+    setBusquedaFiltro({ tipo, valor });
   };
+
   const handleFiltroFormato = (formato) => {
     setTipoFormatoFiltro(formato);
   };
 
-  const filterBooks = () => {
-    return listLibros.filter((libro) => {
-      if (precioMaxFiltro && libro.price > precioMaxFiltro) return false;
-      if (
-        tituloFiltro &&
-        !libro.name.toLowerCase().includes(tituloFiltro.toLowerCase())
-      )
-        return false;
-      if (
-        Object.keys(tipoFormatoFiltro).length > 0 &&
-        !tipoFormatoFiltro[libro.type]
-      )
-        return false;
-
-      return true;
-    });
+  const handleFiltroCategorias = (categorias) => {
+    setTipoCategoriasFiltro(categorias);
   };
 
   return (
@@ -90,11 +100,14 @@ const Principal = () => {
             <div className="principal__filtros__formatos">
               <FormatosComponent onfiltroFormato={handleFiltroFormato} />
             </div>
+            <div className="principal__filtros__categorias">
+              <CategoriasComponent onfiltroCategorias={handleFiltroCategorias} />
+            </div>
           </div>
         </div>
         <div className="col col-md-8 col-lg-8  m-3 p-3 principal__biblioteca">
           <div className="row mt-3 mb-3">
-            <BarraBusqueda onFiltroTitulo={handleFiltroTitulo} />
+            <BarraBusqueda onFiltroBusqueda={handleFiltroBusqueda} />
           </div>
           <div className="row g-4">
             <ListaLibros data={listLibrosFiltrados} />

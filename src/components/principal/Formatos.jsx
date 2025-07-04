@@ -1,21 +1,16 @@
 import React, { useEffect, useState } from "react";
-import "../../styles/Principal/Formatos.css";
+import "../../styles/Principal/Filtros.css";
 function Formatos({ onfiltroFormato }) {
-  const [formato, setFormato] = useState({
-    fisico: true,
-    digital: true,
-  });
+  const [formato, setFormato] = useState("Todos");
 
   const handleChange = (e) => {
-    const { name, checked } = e.target;
-    setFormato((prevState) => ({
-      ...prevState,
-      [name]: checked,
-    }));
+      setFormato(e.target.value);
   };
+
   useEffect(() => {
-    onfiltroFormato(formato);
+      onfiltroFormato(formato);
   }, [formato]);
+
   return (
     <>
       <div className="Formatos__titulo">
@@ -23,10 +18,22 @@ function Formatos({ onfiltroFormato }) {
       </div>
       <div className="form-check">
         <input
+            className="form-check-input"
+            type="radio"
+            name="formato"
+            value="Todos"
+            checked={formato === "Todos"}
+            onChange={handleChange}
+        />
+        <label className="form-check-label">Todos</label>
+      </div>
+      <div className="form-check">
+        <input
           className="form-check-input"
-          type="checkbox"
-          name="fisico"
-          checked={formato.fisico}
+          type="radio"
+          name="formato"
+          value="fisico"
+          checked={formato === "fisico"}
           onChange={handleChange}
         />
         <label className="form-check-label">Físico</label>
@@ -34,9 +41,10 @@ function Formatos({ onfiltroFormato }) {
       <div className="form-check">
         <input
           className="form-check-input"
-          type="checkbox"
-          name="digital"
-          checked={formato.digital}
+          type="radio"
+          name="formato"
+          value="digital"
+          checked={formato === "digital"}
           onChange={handleChange}
         />
         <label className="form-check-label">Digital</label>

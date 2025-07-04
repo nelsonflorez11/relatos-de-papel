@@ -1,0 +1,7 @@
+.Formatos__titulo,
+.Categorias__titulo {
+    font-weight: bold;
+    display: flex;
+    text-align: start;
+    margin-top: 1rem;
+}
