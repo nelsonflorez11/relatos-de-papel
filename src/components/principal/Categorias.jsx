@@ -2,20 +2,35 @@ import React, { useEffect, useState } from "react";
 import "../../styles/Principal/Filtros.css";
 
 function Categorias({ onfiltroCategorias }) {
-    const [categoria, setCategoria] = useState("Todas");
-
-    const handleChange = (e) => {
-        setCategoria(e.target.value);
-    };
+    const [categorias, setCategorias] = useState([]);
+    const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("Todas");
 
     useEffect(() => {
-        onfiltroCategorias(categoria);
-    }, [categoria]);
+      const fetchCategorias = async () => {
+        try {
+          const response = await fetch("http://localhost:8762/buscador-ms/books/categorias");
+          const data = await response.json();
+          setCategorias(data);
+        } catch (error) {
+          console.error("Error al obtener las categorías:", error);
+        }
+      };
+
+        fetchCategorias();
+    }, []);
+
+    useEffect(() => {
+        onfiltroCategorias(categoriaSeleccionada);
+    }, [categoriaSeleccionada, onfiltroCategorias]);
+
+    const handleChange = (e) => {
+        setCategoriaSeleccionada(e.target.value);
+    };
 
     return (
         <>
             <div className="Categorias__titulo">
-                <p>Categoria</p>
+                <p>Categoría</p>
             </div>
             <div className="form-check">
                 <input
@@ -23,44 +38,26 @@ function Categorias({ onfiltroCategorias }) {
                     type="radio"
                     name="categoria"
                     value="Todas"
-                    checked={categoria === "Todas"}
+                    checked={categoriaSeleccionada === "Todas"}
                     onChange={handleChange}
                 />
                 <label className="form-check-label">Todas</label>
             </div>
-            <div className="form-check">
-                <input
-                    className="form-check-input"
-                    type="radio"
-                    name="categoria"
-                    value="Novela"
-                    checked={categoria === "Novela"}
-                    onChange={handleChange}
-                />
-                <label className="form-check-label">Novela</label>
-            </div>
-            <div className="form-check">
-                <input
-                    className="form-check-input"
-                    type="radio"
-                    name="categoria"
-                    value="Cuento"
-                    checked={categoria === "Cuento"}
-                    onChange={handleChange}
-                />
-                <label className="form-check-label">Cuento</label>
-            </div>
-            <div className="form-check">
-                <input
-                    className="form-check-input"
-                    type="radio"
-                    name="categoria"
-                    value="Ensayo"
-                    checked={categoria === "Ensayo"}
-                    onChange={handleChange}
-                />
-                <label className="form-check-label">Ensayo</label>
-            </div>
+            {categorias.map((cat) => (
+                <div className="form-check" key={cat.nombre}>
+                    <input
+                        className="form-check-input"
+                        type="radio"
+                        name="categoria"
+                        value={cat.nombre}
+                        checked={categoriaSeleccionada === cat.nombre}
+                        onChange={handleChange}
+                    />
+                    <label className="form-check-label">
+                        {cat.nombre} ({cat.cantidad})
+                    </label>
+                </div>
+            ))}
         </>
     );
 }
